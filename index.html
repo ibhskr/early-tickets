@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Early Tickets Coming Soon | NexusPass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0f',
+                            800: '#12121a',
+                            700: '#1a1a24'
+                        },
+                        neon: {
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            purple: '#a855f7',
+                            pink: '#ec4899'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0a0a0f;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.5), 0 0 40px rgba(168, 85, 247, 0.3);
+        }
+        .glow-box {
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.15), inset 0 0 15px rgba(168, 85, 247, 0.1);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.8), 0 0 50px rgba(168, 85, 247, 0.5);
+        }
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-neon-cyan selection:text-black">
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header class="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-cyan to-neon-purple flex items-center justify-center glow-button">
+                <i class="fa-solid fa-ticket text-black text-lg font-bold"></i>
+            </div>
+            <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-neon-cyan via-neon-blue to-neon-purple bg-clip-text text-transparent">
+                NEXUS<span class="text-white">PASS</span>
+            </span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="hidden sm:inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest bg-dark-800 border border-neon-cyan/30 text-neon-cyan animate-pulse">
+                <i class="fa-solid fa-circle text-[8px] mr-1.5 text-neon-cyan"></i> Season 2026 Opening
+            </span>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow flex items-center justify-center px-6 py-12">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <!-- Badge -->
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-dark-800/80 border border-neon-purple/40 backdrop-blur-md mb-8 shadow-lg">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-purple opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-neon-purple"></span>
+                </span>
+                <span class="text-sm font-medium tracking-wide text-gray-300">The Ultimate Ticketing Experience is Almost Here</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 leading-none">
+                EARLY TICKETS <br/>
+                <span class="bg-gradient-to-r from-neon-cyan via-neon-blue to-neon-purple bg-clip-text text-transparent glow-text">
+                    COMING SOON
+                </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                Secure front-row access to the world's most exclusive concerts, festivals, and immersive live events before anyone else. Join the VIP priority list today.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-xl mx-auto mb-14">
+                <div class="bg-dark-800/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 glow-box">
+                    <span id="days" class="text-4xl md:text-5xl font-black text-white block mb-1">00</span>
+                    <span class="text-xs uppercase tracking-widest text-neon-cyan font-semibold">Days</span>
+                </div>
+                <div class="bg-dark-800/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 glow-box">
+                    <span id="hours" class="text-4xl md:text-5xl font-black text-white block mb-1">00</span>
+                    <span class="text-xs uppercase tracking-widest text-neon-cyan font-semibold">Hours</span>
+                </div>
+                <div class="bg-dark-800/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 glow-box">
+                    <span id="minutes" class="text-4xl md:text-5xl font-black text-white block mb-1">00</span>
+                    <span class="text-xs uppercase tracking-widest text-neon-cyan font-semibold">Minutes</span>
+                </div>
+                <div class="bg-dark-800/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 glow-box">
+                    <span id="seconds" class="text-4xl md:text-5xl font-black text-white block mb-1">00</span>
+                    <span class="text-xs uppercase tracking-widest text-neon-cyan font-semibold">Seconds</span>
+                </div>
+            </div>
+
+            <div class="max-w-md mx-auto">
+                <form id="subscribe-form" class="flex flex-col sm:flex-row gap-3 relative">
+                    <input 
+                        type="email" 
+                        id="email-input"
+                        placeholder="Enter your email for early access..." 
+                        required
+                        class="flex-grow px-6 py-4 rounded-xl bg-dark-800/80 border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan backdrop-blur-md transition-all text-sm md:text-base"
+                    >
+                    <button 
+                        type="submit"
+                        class="px-8 py-4 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-black font-bold text-sm md:text-base glow-button hover:opacity-90 active:scale-95 transition-all whitespace-nowrap cursor-pointer"
+                    >
+                        Get Early Access <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </form>
+
+                <!-- Message Box (Replacing alert) -->
+                <div id="message-box" class="hidden mt-4 p-4 rounded-xl bg-dark-800 border border-neon-cyan/40 text-neon-cyan text-sm flex items-center justify-center space-x-2 animate-fade-in">
+                    <i class="fa-solid fa-circle-check text-lg"></i>
+                    <span id="message-text">You're on the VIP list! We'll notify you when tickets drop.</span>
+                </div>
+            </div>
+
+            <!-- Perks Highlights -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-20 max-w-3xl mx-auto text-left">
+                <div class="p-5 rounded-2xl bg-dark-800/40 border border-white/5 backdrop-blur-sm">
+                    <div class="w-10 h-10 rounded-lg bg-neon-cyan/10 flex items-center justify-center text-neon-cyan mb-3">
+                        <i class="fa-solid fa-bolt text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1">Priority Drop Alerts</h3>
+                    <p class="text-xs text-gray-400">Get notified 24 hours before public release with direct secure purchasing links.</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-dark-800/40 border border-white/5 backdrop-blur-sm">
+                    <div class="w-10 h-10 rounded-lg bg-neon-purple/10 flex items-center justify-center text-neon-purple mb-3">
+                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1">Zero Scalper Fees</h3>
+                    <p class="text-xs text-gray-400">Guaranteed face-value tickets backed by blockchain cryptographic authentication.</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-dark-800/40 border border-white/5 backdrop-blur-sm">
+                    <div class="w-10 h-10 rounded-lg bg-neon-pink/10 flex items-center justify-center text-neon-pink mb-3">
+                        <i class="fa-solid fa-crown text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1">VIP Backstage Perks</h3>
+                    <p class="text-xs text-gray-400">Early subscribers unlock exclusive soundcheck passes and artist meet-and-greets.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 border-t border-white/5">
+        <p>&copy; 2026 NexusPass Ticketing Inc. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 sm:mt-0">
+            <a href="#" class="hover:text-neon-cyan transition-colors"><i class="fa-brands fa-x-twitter text-base"></i></a>
+            <a href="#" class="hover:text-neon-cyan transition-colors"><i class="fa-brands fa-instagram text-base"></i></a>
+            <a href="#" class="hover:text-neon-cyan transition-colors"><i class="fa-brands fa-discord text-base"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // --- Countdown Timer Logic ---
+        // Set target date 14 days from now
+        const countDownDate = new Date().getTime() + (14 * 24 * 60 * 60 * 1000);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- Form Submission Handling (No alert used) ---
+        const form = document.getElementById('subscribe-form');
+        const messageBox = document.getElementById('message-box');
+        const emailInput = document.getElementById('email-input');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            if (email) {
+                messageBox.classList.remove('hidden');
+                emailInput.value = '';
+                setTimeout(() => {
+                    messageBox.classList.add('opacity-100');
+                }, 50);
+            }
+        });
+
+        // --- Interactive Particle Animation Background ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        const numberOfParticles = 55;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6;
+                this.color = Math.random() > 0.5 ? '#00f2fe' : '#a855f7';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                else if (this.x < 0) this.x = canvas.width;
+
+                if (this.y > canvas.height) this.y = 0;
+                else if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                // Connect nearby particles with faint lines
+                for (let j = i + 1; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${0.15 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
